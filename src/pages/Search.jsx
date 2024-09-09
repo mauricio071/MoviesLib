@@ -47,7 +47,7 @@ const Search = () => {
                 {loading && <p>Carregando...</p>}
                 {!loading && error && <p>Ocorreu um problema ao carregar os filmes. Tente novamente mais tarde.</p>}
                 {!loading && !error && movies.length === 0 && <p>Nenhum resultado encontrado.</p>}
-                {!loading && !error && topMovies.length > 0 && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+                {!loading && !error && movies.length > 0 && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
             </div>
         </div>
     )

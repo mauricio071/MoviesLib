@@ -16,12 +16,23 @@ const Search = () => {
 
     const [loading, setLoading] = useState(true);
 
-    const getSearchedMovies = async (url) => {
-        const res = await fetch(url);
-        const data = await res.json();
+    const [error, setError] = useState(false);
 
-        setMovies(data.results);
-        setLoading(false)
+    const getSearchedMovies = async (url) => {
+        try {
+            const res = await fetch(url);
+
+            if (!res.ok) {
+                throw new Error('Falha ao buscar os dados');
+            }
+            const data = await res.json();
+            setMovies(data.results);
+        } catch (err) {
+            console.error("Erro ao buscar filmes:", err);
+            setError(true);
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -34,8 +45,9 @@ const Search = () => {
             <h2 className="title">Resultados para: {query}</h2>
             <div className="movies-container">
                 {loading && <p>Carregando...</p>}
-                {!loading && movies.length === 0 && <p>Nenhum resultado encontrado.</p>}
-                {movies.length > 0 && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+                {!loading && error && <p>Ocorreu um problema ao carregar os filmes. Tente novamente mais tarde.</p>}
+                {!loading && !error && movies.length === 0 && <p>Nenhum resultado encontrado.</p>}
+                {!loading && !error && topMovies.length > 0 && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
             </div>
         </div>
     )

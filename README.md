@@ -1,5 +1,5 @@
 <div align="center"> <h1>MoviesLib</h1> </div>
-
+ 
 <p align="center">Explore uma vasta coleção de filmes e acesse informações detalhadas sobre suas obras favoritas!</p>
 
 <p align="center">
